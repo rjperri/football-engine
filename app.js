@@ -8,3 +8,7 @@ console.log("Football Engine Loaded");
 
 console.log("Offensive Plays");
 console.table(Plays);
+
+
+console.log("Defensive Calls");
+console.table(Defenses);
