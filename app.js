@@ -5,9 +5,6 @@ import Commentary from "./commentary/Commentary.js";
 
 console.log("Football Engine Loaded");
 
-console.log({
-    Engine,
-    Plays,
-    Defenses,
-    Commentary
-});
+
+console.log("Offensive Plays");
+console.table(Plays);
