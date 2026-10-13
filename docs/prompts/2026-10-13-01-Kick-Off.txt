@@ -1,0 +1,144 @@
+I'm beginning development on a new side project called **football-engine**.
+
+This project is **not** intended to be a traditional football game. The long-term vision is to build a **football reasoning engine** capable of simulating the strategic interaction between offensive and defensive play calls, then explaining *why* each play succeeded or failed through generated commentary.
+
+Please use the files in the repository as the source of truth:
+
+- README.md
+- ROADMAP.md
+- docs/architecture.md
+
+Before writing any code, read those files and use them to guide implementation.
+
+## Project Goals
+
+The engine should answer two questions for every play:
+
+1. What happened?
+2. Why did it happen?
+
+The explanation is just as important as the result.
+
+## Current Scope
+
+We are only building the POC described in ROADMAP.md.
+
+Do **not** jump ahead to:
+
+- Seasons
+- Players
+- Ratings
+- AI coordinators
+- Clock management
+- Drives
+- Databases
+- Frameworks
+- Build systems
+
+Stay focused on the current milestone.
+
+## Technology
+
+Use:
+
+- Plain JavaScript (ES6 modules)
+- HTML
+- CSS
+
+Do **not** introduce:
+
+- TypeScript
+- Angular
+- React
+- Vue
+- Vite
+- Webpack
+- Babel
+- npm dependencies unless absolutely necessary
+
+I intentionally want this project to remain extremely lightweight.
+
+My preferred workflow is:
+
+VS Code
+
+↓
+
+Save
+
+↓
+
+Refresh Browser
+
+↓
+
+Commit
+
+↓
+
+Push to GitHub
+
+↓
+
+GitHub Pages
+
+No compile step.
+
+No build process.
+
+## Coding Philosophy
+
+Favor:
+
+- Small files
+- Simple objects
+- Readable code
+- Browser debuggability
+- Incremental development
+
+Avoid over-engineering.
+
+If something can be solved simply, choose the simpler solution.
+
+## Architecture
+
+Keep the systems separated.
+
+Football Engine
+
+- Understands football.
+- Produces football events.
+
+Commentary Engine
+
+- Understands language.
+- Converts events into readable commentary.
+
+UI
+
+- Displays results only.
+- Contains no football logic.
+
+This separation is extremely important.
+
+## Development Style
+
+Work in very small steps.
+
+Do not generate hundreds of lines of code at once.
+
+For each step:
+
+1. Explain what we're building.
+2. Explain why.
+3. Describe how it fits into the architecture.
+4. Generate only the code needed for that step.
+5. Wait for me to test it before moving on.
+
+Assume I will be committing after each completed step.
+
+## Most Important Rule
+
+If you think a future idea would improve the project, mention it briefly if relevant, but **do not implement it early**.
+
+Help keep the project focused on building a great football engine one small step at a time.
