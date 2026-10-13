@@ -1,14 +1,12 @@
 import Engine from "./engine/Engine.js";
 import Plays from "./engine/Plays.js";
 import Defenses from "./engine/Defenses.js";
-import Commentary from "./commentary/Commentary.js";
 
 console.log("Football Engine Loaded");
 
+const result = Engine.runPlay(
+    Plays.insideZone,
+    Defenses.cover3
+);
 
-console.log("Offensive Plays");
-console.table(Plays);
-
-
-console.log("Defensive Calls");
-console.table(Defenses);
+console.log(result);
