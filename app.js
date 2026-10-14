@@ -3,22 +3,39 @@ import Plays from "./engine/Plays.js";
 import Defenses from "./engine/Defenses.js";
 import Commentary from "./commentary/Commentary.js";
 
-console.log("Football Engine Loaded");
+const offenseSelect = document.getElementById("offense");
+const defenseSelect = document.getElementById("defense");
+const runButton = document.getElementById("run-play");
 
-const result = Engine.runPlay(
-    Plays.insideZone,
-    Defenses.runBlitz
-);
+const gainElement = document.getElementById("gain");
+const commentaryElement = document.getElementById("commentary");
 
-console.log("Play Result");
-console.log(result);
+function populateSelect(select, items) {
+    Object.values(items).forEach(item => {
+        const option = document.createElement("option");
 
-console.table(result.events);
+        option.value = item.id;
+        option.textContent = item.name;
 
-console.log("Debug");
-console.table(result.debug);
+        select.appendChild(option);
+    });
+}
 
-const commentary = Commentary.describe(result.events);
+populateSelect(offenseSelect, Plays);
+populateSelect(defenseSelect, Defenses);
 
-console.log("Commentary:");
-console.log(commentary);
+runButton.addEventListener("click", () => {
+
+    const offense = Object.values(Plays)
+        .find(play => play.id === offenseSelect.value);
+
+    const defense = Object.values(Defenses)
+        .find(call => call.id === defenseSelect.value);
+
+    const result = Engine.runPlay(offense, defense);
+
+    gainElement.textContent = `${result.gain} yards`;
+
+    commentaryElement.textContent =
+        Commentary.describe(result.events);
+});

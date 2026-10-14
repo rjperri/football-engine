@@ -16,7 +16,28 @@
     <p>Football reasoning engine prototype</p>
   </header>
 
-  <main id="app"></main>
+  <main id="app">
+    <div class="controls">
+      <label for="offense">Offense</label>
+      <select id="offense"></select>
+
+      <label for="defense">Defense</label>
+      <select id="defense"></select>
+
+      <button id="run-play">Run Play</button>
+    </div>
+
+    <hr>
+
+    <section class="results">
+      <h2>Result</h2>
+
+      <p><strong>Gain:</strong> <span id="gain">-</span></p>
+
+      <p><strong>Commentary:</strong></p>
+      <p id="commentary">Run a play to begin.</p>
+    </section>
+  </main>
 
   <script type="module" src="app.js"></script>
 
