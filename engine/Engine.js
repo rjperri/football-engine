@@ -12,10 +12,11 @@ const Engine = {
       defense,
       gain,
       events,
-      debug: [
-        `Offense: ${offense.name}`,
-        `Defense: ${defense.name}`
-      ]
+      debug: {
+        offense: offense.name,
+        defense: defense.name,
+        eventCount: events.length
+      }
     };
   },
 
@@ -37,32 +38,10 @@ const Engine = {
   },
 
   calculateGain(events) {
-    let gain = 0;
-
-    for (const event of events) {
-      switch (event.id) {
-        case "successful-handoff":
-          gain += 1;
-          break;
-
-        case "running-lane-opens":
-          gain += 3;
-          break;
-
-        case "running-lane-closes":
-          gain -= 1;
-          break;
-
-        case "pulling-guard-wins-block":
-          gain += 2;
-          break;
-
-        case "receiver-separation":
-          gain += 5;
-          break;
-      }
-    }
-    return gain;
+    return events.reduce(
+      (gain, event) => gain + event.yardImpact,
+      0
+    );
   },
 
   runInsideZone(defense) {
@@ -73,16 +52,24 @@ const Engine = {
 
     switch (defense.id) {
 
-      case "run-blitz":
-        events.push(Events.runningLaneCloses);
+      case "cover-3":
+        events.push(
+          Events.runningLaneOpens,
+          Events.linebackerWrongGap
+        );
         break;
 
-      case "cover-3":
-        events.push(Events.runningLaneOpens);
+      case "run-blitz":
+        events.push(
+          Events.runningLaneCloses,
+          Events.safetyTackle
+        );
         break;
 
       case "man-blitz":
-        events.push(Events.runningLaneCloses);
+        events.push(
+          Events.runningLaneCloses
+        );
         break;
     }
 
