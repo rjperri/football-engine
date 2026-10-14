@@ -4,9 +4,17 @@ import Defenses from "./engine/Defenses.js";
 
 console.log("Football Engine Loaded");
 
-const result = Engine.runPlay(
+console.log(Engine.runPlay(
     Plays.insideZone,
     Defenses.cover3
-);
+));
 
-console.log(result);
+console.log(Engine.runPlay(
+    Plays.insideZone,
+    Defenses.runBlitz
+));
+
+console.log(Engine.runPlay(
+    Plays.insideZone,
+    Defenses.manBlitz
+));
