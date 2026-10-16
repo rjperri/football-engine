@@ -8,7 +8,8 @@ const descriptions = {
     "receiver-separation": "The receiver creates separation.",
     "broken-tackle": "The runner breaks a tackle.",
     "safety-tackle": "The safety brings the runner down.",
-    "touchdown": "Touchdown!"
+    "touchdown": "Touchdown!",
+    "successful-snap": "The center snaps the ball.",
 };
 
 const Commentary = {

@@ -1,4 +1,5 @@
 import Events from "./Events.js";
+import Matchups from "./Matchups.js";
 
 const Engine = {
   runPlay(offense, defense) {
@@ -20,6 +21,25 @@ const Engine = {
     };
   },
 
+  roll(percent) {
+    return Math.random() * 100 < percent;
+  },
+
+  chooseOutcome(outcomes) {
+    const roll = Math.random() * 100;
+
+    let total = 0;
+
+    for (const outcome of outcomes) {
+      total += outcome.weight;
+
+      if (roll < total) {
+        return outcome;
+      }
+    }
+
+    return outcomes[outcomes.length - 1];
+  },
   generateEvents(offense, defense) {
 
     if (offense.id === "inside-zone") {
@@ -45,49 +65,55 @@ const Engine = {
   },
 
   runInsideZone(defense) {
-
-    const events = [
-      Events.successfulHandoff
-    ];
-
-    switch (defense.id) {
-
-      case "cover-3":
-        events.push(
-          Events.runningLaneOpens,
-          Events.linebackerWrongGap
-        );
-        break;
-
-      case "run-blitz":
-        events.push(
-          Events.runningLaneCloses,
-          Events.safetyTackle
-        );
-        break;
-
-      case "man-blitz":
-        events.push(
-          Events.runningLaneCloses
-        );
-        break;
-    }
+    const events = [];
+    this.resolveExchange(events);
+    this.resolveBlocking(events, defense);
+    this.resolveSecondLevel(events, defense);
 
     return events;
   },
 
   runCounter(defense) {
-    return [
-      Events.successfulHandoff,
-      Events.pullingGuardWinsBlock
+    const events = [
+      Events.successfulHandoff
     ];
+
+    const outcomes = Matchups["inside-zone"][defense.id];
+    const outcome = this.chooseOutcome(outcomes);
+    events.push(...outcome.events);
+    return events;
   },
 
   runSlant(defense) {
-    return [
-      Events.receiverSeparation
+    const events = [
+      Events.successfulSnap
     ];
-  }
+    const outcomes = Matchups["slant"][defense.id];
+    const outcome = this.chooseOutcome(outcomes);
+    return outcome.events;
+  },
+
+  resolveExchange(events) {
+    events.push(Events.successfulHandoff);
+  },
+
+  resolveBlocking(events, defense) {
+    const outcome = this.chooseOutcome(
+      Matchups["inside-zone"][defense.id].blocking
+    );
+
+    events.push(...outcome.events);
+  },
+
+  resolveSecondLevel(events, defense) {
+
+    if (events.includes(Events.runningLaneOpens)) {
+        events.push(Events.linebackerWrongGap);
+    }
+    else {
+        events.push(Events.safetyTackle);
+    }
+}
 };
 
 export default Engine;
